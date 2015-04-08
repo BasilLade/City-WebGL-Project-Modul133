@@ -1,0 +1,30 @@
+body {
+    background-color: #d8e7ff;
+    font-family:'Open Sans' ,sans-serif;
+    /*cursor: url(../cursor.png), auto;*/
+    margin: 0;
+    overflow: hidden;
+}
+.movement-desc {
+    position: absolute;
+    left: 0px;
+    top: 15px;
+    width: 100%;
+    color: rgba(0, 0, 64, 0.498039);
+    text-align: center;
+}
+
+#city-name {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    color: rgb(255,255,255);
+    text-align: center;
+    background: rgba(0,0,0,0.8);
+    height: 50px;
+    line-height: 50px;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+}
+
