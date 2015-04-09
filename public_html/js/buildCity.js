@@ -1,3 +1,8 @@
+/**
+ * Konstruktor von der Klasse BuildCity
+ * 
+ * @returns {BuildCity}
+ */
 function BuildCity() {
     this.scene, this.camera, this.renderer;
     this.light, this.controls;
@@ -21,7 +26,11 @@ function BuildCity() {
     $('#buildingWidth').val(this.buildingWidth);
 }
 
-
+/**
+ * Erstellt die Steuerung der Kamera.
+ * 
+ * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ */
 BuildCity.prototype.generateControls = function () {
     this.controls = new THREE.FirstPersonControls(this.camera);
     this.controls.movementSpeed = 200;
@@ -31,6 +40,11 @@ BuildCity.prototype.generateControls = function () {
     this.controls.autoSpeedFactor = false;
 };
 
+/**
+ * Erstellt die Kamera.
+ * 
+ * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ */
 BuildCity.prototype.generateCamera = function () {
     this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 3000);
     this.camera.position.y = 300;
@@ -39,10 +53,16 @@ BuildCity.prototype.generateCamera = function () {
     
 };
 
+/**
+ * 
+ * 
+ * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ */
 BuildCity.prototype.generateRenderer = function () {
     this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
     // Farbe des Himmels
     this.renderer.setClearColor(this.skyboxColor);
+    
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 };
@@ -58,9 +78,9 @@ BuildCity.prototype.generateLight = function () {
 };
 
 /**
+ * Generierung der Stadt auf zufälliger Basis.
  * 
- * 
- * @returns nichts
+ * @returns {undefined} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.generateCity = function () {
 
@@ -166,7 +186,8 @@ BuildCity.prototype.generateCity = function () {
 /**
  * Generiert die Texturen für die Gebäude.
  * 
- * @returns {buildCity.prototype.generateTexture.canvas|Element} 
+ * @returns {buildCity.prototype.generateTexture.canvas|Element} Liefert 
+ * die "Zeichenfläche" für den Browser zurück.
  */
 BuildCity.prototype.generateTexture = function () {
     var textureCanvas = document.createElement('canvas');
@@ -206,7 +227,7 @@ BuildCity.prototype.generateTexture = function () {
 /**
  * Rekursive Funktion, die animation erzeugt.
  * 
- * @returns nichts
+ * @returns {undefined} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.animate = function () {
     requestAnimationFrame(this.animate.bind(this));
@@ -219,6 +240,12 @@ BuildCity.prototype.animate = function () {
     this.lastTime = time;
 };
 
+/**
+ * Nachdem "Rebuild" geklickt wurde, wird diese Funktion aufgerufen, um die
+ * entsprechenden Paramater anzupassen, damit die Änderung angewendet werden.
+ * 
+ * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ */
 BuildCity.prototype.rebuild = function () {
     this.cityName = $('#cityName').val();
     $('#city-name').html(this.cityName);
@@ -231,8 +258,15 @@ BuildCity.prototype.rebuild = function () {
     this.generateCity();
 };
 
-
-
+/**
+ * Diese Funktion verhindert die Eingabe von Buchstaben und
+ * jeglichen Sonderzeichen, bei den entsprechenden Eingabefeldern
+ * (z.B. Anzahl Häuser). 
+ * 
+ * @param {type} event Enthält den "inhalt" der Benutzereingabe.
+ * @returns {Boolean} liefert falsch zurück, falls versucht wurde Buchstaben
+ * oder Sonderzeichen einzugeben.
+ */
 function onlyNumbers(event) {
     return event.charCode >= 48 && event.charCode <= 57;
 }
