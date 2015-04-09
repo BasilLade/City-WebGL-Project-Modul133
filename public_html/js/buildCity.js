@@ -1,7 +1,11 @@
+
+
 /**
  * Konstruktor von der Klasse BuildCity
  * 
- * @returns {BuildCity}
+ * @class BuildCity
+ * @constructor
+ * @returns {BuildCity} liefert die generierte Stadt zurück
  */
 function BuildCity() {
     this.scene, this.camera, this.renderer;
@@ -28,8 +32,10 @@ function BuildCity() {
 
 /**
  * Erstellt die Steuerung der Kamera.
- * 
- * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ *
+ * @function generateControls
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.generateControls = function () {
     this.controls = new THREE.FirstPersonControls(this.camera);
@@ -43,26 +49,29 @@ BuildCity.prototype.generateControls = function () {
 /**
  * Erstellt die Kamera.
  * 
- * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ * @function generateCamera
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.generateCamera = function () {
     this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 3000);
     this.camera.position.y = 300;
     this.camera.position.z = 0;
     this.camera.position.x = -700;
-    
+
 };
 
 /**
  * 
- * 
- * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ * @function generateRenderer
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.generateRenderer = function () {
     this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
     // Farbe des Himmels
     this.renderer.setClearColor(this.skyboxColor);
-    
+
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 };
@@ -70,7 +79,9 @@ BuildCity.prototype.generateRenderer = function () {
 /**
  * Belichtungsfarbe
  * 
- * @returns {undefined}
+ * @function generateLight
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.generateLight = function () {
     this.light = new THREE.HemisphereLight(0xfffff0, 0x101020, 1.25);
@@ -80,15 +91,17 @@ BuildCity.prototype.generateLight = function () {
 /**
  * Generierung der Stadt auf zufälliger Basis.
  * 
- * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ * @function generateCity
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.generateCity = function () {
-
     this.scene = new THREE.Scene();
 //    this.scene.fog = new THREE.FogExp2(0xd0e0f0, 0.0025);
 
     this.generateLight();
     this.scene.add(this.light);
+
     //Plane Farbe
     var planeColor = 0x000000;
     //Platte erstellen
@@ -100,12 +113,13 @@ BuildCity.prototype.generateCity = function () {
     var plane = new THREE.Mesh(new THREE.PlaneGeometry(planeLength, planeLength), new THREE.MeshBasicMaterial({color: planeColor}));
     // Platte wird um 90 Grad gedreht, damit sie horizontal ausgerichet ist.     
     plane.rotation.x = -90 * Math.PI / 180;
+
     //Platte der scene hinzufügen
     this.scene.add(plane);
 
     //Grundgebäude erstellen
     var geometry = new THREE.CubeGeometry(this.buildingWidth, this.buildingWidth, this.buildingWidth);
-    geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, this.buildingWidth/2, 0));
+    geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, this.buildingWidth / 2, 0));
     geometry.faces.splice(3, 1);
     geometry.faceVertexUvs[0].splice(3, 1);
     geometry.faceVertexUvs[0][2][0].set(0, 0);
@@ -152,7 +166,7 @@ BuildCity.prototype.generateCity = function () {
         }
 
         var randomBuildingHeight = (Math.random() * Math.random() * Math.random() * building.scale.x) * 8 + 8; //(Math.random() * 6) + 4;
-        
+
 //        building.position.y = 0 ;
 
         // Höhe der Gebäude setzten.
@@ -186,6 +200,8 @@ BuildCity.prototype.generateCity = function () {
 /**
  * Generiert die Texturen für die Gebäude.
  * 
+ * function generateTexture
+ * @memberOf BuildCity
  * @returns {buildCity.prototype.generateTexture.canvas|Element} Liefert 
  * die "Zeichenfläche" für den Browser zurück.
  */
@@ -227,7 +243,9 @@ BuildCity.prototype.generateTexture = function () {
 /**
  * Rekursive Funktion, die animation erzeugt.
  * 
- * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ * @function animate
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.animate = function () {
     requestAnimationFrame(this.animate.bind(this));
@@ -244,7 +262,9 @@ BuildCity.prototype.animate = function () {
  * Nachdem "Rebuild" geklickt wurde, wird diese Funktion aufgerufen, um die
  * entsprechenden Paramater anzupassen, damit die Änderung angewendet werden.
  * 
- * @returns {undefined} Funktion liefert keinen Rückgabewert.
+ * funtion rebuild
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
 BuildCity.prototype.rebuild = function () {
     this.cityName = $('#cityName').val();
@@ -253,7 +273,7 @@ BuildCity.prototype.rebuild = function () {
     this.streetWidth = parseInt($('#streetWidth').val());
     this.buildingWidth = parseInt($('#buildingWidth').val());
     this.skyboxColor = $('#skybox').val();
-    
+
 //    this.renderer.setClearColor(this.skyboxColor);
     this.generateCity();
 };
@@ -263,6 +283,7 @@ BuildCity.prototype.rebuild = function () {
  * jeglichen Sonderzeichen, bei den entsprechenden Eingabefeldern
  * (z.B. Anzahl Häuser). 
  * 
+ * function onlyNumbers
  * @param {type} event Enthält den "inhalt" der Benutzereingabe.
  * @returns {Boolean} liefert falsch zurück, falls versucht wurde Buchstaben
  * oder Sonderzeichen einzugeben.
