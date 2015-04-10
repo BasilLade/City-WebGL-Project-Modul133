@@ -43,7 +43,6 @@ BuildCity.prototype.generateControls = function () {
     this.controls.lookSpeed = 0;
     this.controls.lon = 1.0;
     this.controls.lookVertical = true;
-    this.controls.autoSpeedFactor = false;
 };
 
 /**
@@ -73,6 +72,11 @@ BuildCity.prototype.generateRenderer = function () {
     this.renderer.setClearColor(this.skyboxColor);
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+    
+//    this.renderer.domElement.onmouseover = function () {
+//        document.activeElement.blur();
+//    };
     document.body.appendChild(this.renderer.domElement);
 };
 
@@ -200,7 +204,7 @@ BuildCity.prototype.generateCity = function () {
 /**
  * Generiert die Texturen für die Gebäude.
  * 
- * function generateTexture
+ * @function generateTexture
  * @memberOf BuildCity
  * @returns {buildCity.prototype.generateTexture.canvas|Element} Liefert 
  * die "Zeichenfläche" für den Browser zurück.
@@ -262,7 +266,7 @@ BuildCity.prototype.animate = function () {
  * Nachdem "Rebuild" geklickt wurde, wird diese Funktion aufgerufen, um die
  * entsprechenden Paramater anzupassen, damit die Änderung angewendet werden.
  * 
- * funtion rebuild
+ * @funtion rebuild
  * @memberOf BuildCity
  * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
@@ -279,15 +283,49 @@ BuildCity.prototype.rebuild = function () {
 };
 
 /**
- * Diese Funktion verhindert die Eingabe von Buchstaben und
- * jeglichen Sonderzeichen, bei den entsprechenden Eingabefeldern
- * (z.B. Anzahl Häuser). 
+ * Durch diese Funktion wird die Kamerabewegung, mit den Maustasten,
+ * deaktiviert.
  * 
- * function onlyNumbers
- * @param {type} event Enthält den "inhalt" der Benutzereingabe.
- * @returns {Boolean} liefert falsch zurück, falls versucht wurde Buchstaben
- * oder Sonderzeichen einzugeben.
+ * @funtion disableMouseControls
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
-function onlyNumbers(event) {
-    return event.charCode >= 48 && event.charCode <= 57;
-}
+BuildCity.prototype.disableMouseControls = function () {
+    this.controls.activeLook = false;
+};
+
+/**
+ * Durch diese Funktion wird die Kamerabewegung, mit den Maustasten,
+ * aktiviert.
+ * 
+ * @funtion enableMouseControls
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
+ */
+BuildCity.prototype.enableMouseControls = function () {
+    this.controls.activeLook = true;
+};
+
+/**
+ * Durch diese Funktion wird die Kamerabewegung, mit der Tastatur,
+ * deaktiviert.
+ * 
+ * @funtion disableKeyboardControls
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
+ */
+BuildCity.prototype.disableKeyboardControls = function () {
+    this.controls.keyboardMovement = false;
+};
+
+/**
+ * Durch diese Funktion wird die Kamerabewegung, mit der Tastatur,
+ * aktiviert.
+ * 
+ * @funtion enableKeyboardControls
+ * @memberOf BuildCity
+ * @returns {Void} Funktion liefert keinen Rückgabewert.
+ */
+BuildCity.prototype.enableKeyboardControls = function () {
+    this.controls.keyboardMovement = false;
+};
