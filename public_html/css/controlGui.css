@@ -17,8 +17,7 @@
 
 #sidebar input {
     display: block;
-    margin: 5px 0;
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
 }
 
 #sidebar input:last-child {
@@ -50,7 +49,7 @@ input[type="number"]:focus {
     transition: border, background 0.6s ease;
 }
 
-input[type="button"] {
+.btn {
     font-size: 20px;
     outline: none;
     display: inline-block;
@@ -67,35 +66,32 @@ input[type="button"] {
     color: #606060;
 }
 
-input[type="button"]:hover,
-input[type="button"]:focus {
+.btn:hover,
+.btn:focus {
     border-color: #2795dd;
     transition: border-color ease-in-out 0.2s;
 }
 
-input[type="button"]:active {
+btn:active {
     background: #2795dd;
     color: white;
     transition: color, background 0.16665s;
 }
 
-a.toggler {
+.btn.btn-info {
     display: inline-block;
-    background: green;
-    cursor: pointer;
-    border: 3px solid lightgrey;
-    border-right-width: 40px;
-    border-left-width: 5px;
-    height: 25px;
-    padding: 0 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: all .3s ease;
+    position: relative;
+    width: 46%;
 }
 
-a.toggler.off {
-    background: #ff0707;
-    border-right-width: 5px;
-    border-left-width: 40px;
-    border-color: #898989;
+.btn.btn-info.btn-help {
+    float: left;
+}
+
+.btn.btn-info.btn-about {
+    left: 8%;
+}
+
+.clearFloat {
+    clear: both;
 }
