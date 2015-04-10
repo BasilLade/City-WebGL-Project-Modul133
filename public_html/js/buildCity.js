@@ -272,11 +272,11 @@ BuildCity.prototype.animate = function () {
  */
 BuildCity.prototype.rebuild = function () {
     this.cityName = $('#cityName').val();
+    $('#city-name').html(this.cityName);
     this.buildings = parseInt($('#buildings').val());
     this.streetWidth = parseInt($('#streetWidth').val());
     this.buildingWidth = parseInt($('#buildingWidth').val());
     this.skyboxColor = $('#skybox').val();
-    $('#city-name').html(this.cityName);
 
 //    this.renderer.setClearColor(this.skyboxColor);
     this.generateCity();
