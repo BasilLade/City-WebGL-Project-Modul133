@@ -20,10 +20,11 @@ function onlyNumbers(event) {
  * @param {type} event Enthält den "inhalt" der Buttons.
  * @returns {Void} Funktion liefert keinen Rückgabewert.
  */
-function showInformationPopup(event) {
+function showInformationDialog(event) {
     // Wenn "Hilfe" Button gedrückt wurde, zeige das entsprechende Popup.
     if (event.target.id === "help") {
-        var formattedControlsText = "<span style='font-weight: bold;'> Tastatur </span>" +
+        var formattedControlsText = "<span style='font-weight: bold;'> "+
+                "Tastatur </span>" +
                 "<br>vorwärts (w)" +
                 "<br>rückwärts (s)" +
                 "<br>rechts (a)" +
